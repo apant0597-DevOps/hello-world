@@ -16,18 +16,6 @@ pipeline {
                 sh 'mvn test'
             }
             post {
-                success{
-                    withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'sonarqube') {
-                        sh '''
-                        
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=DevOpsProject \
-                        -Dsonar.projectKey=DevOpsProject \
-                        -Dsonar.login=23f4d1073a1f73702699d6a04cddf483d9923521
-                        
-                        '''
-                    }
-                }
                 unsuccessful {
                     slackSend baseUrl: 'https://hooks.slack.com/services/', 
                     channel: 'jenkins-notifs', 
@@ -55,7 +43,7 @@ pipeline {
             steps {
                 slackSend baseUrl: 'https://hooks.slack.com/services/', 
                 channel: 'jenkins-notifs', 
-                color: '	#008000', 
+                color: '#008000', 
                 message: 'BUILD SUCCESS!', 
                 tokenCredentialId: 'slack', 
                 username: 'Jenkins-NOTIFS'
