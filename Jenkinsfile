@@ -17,7 +17,7 @@ pipeline {
             }
             post {
                 success{
-                    withSonarQubeEnv(sonarqube, credentialsId: 'sonarqube') {
+                    withSonarQubeEnv(installationName: 'sonarqube', credentialsId: 'sonarqube') {
                         sh 'mvn sonar:sonar'
                     }
                 }
