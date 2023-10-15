@@ -17,7 +17,7 @@ pipeline {
             }
             post {
                 success{
-                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                    withSonarQubeEnv(sonarqube, credentialsId: 'sonarqube') {
                         sh 'mvn sonar:sonar'
                     }
                 }
