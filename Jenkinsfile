@@ -22,9 +22,9 @@ pipeline {
                 sshagent(['jenkins-agent-creds']) {
                     sh '''
                 
-                    scp -o StrictHostKeyChecking=no webapp/target/helloworld.war ec2-user@34.209.47.66:/opt/tomcat9/webapps
-                    ssh ec2-user@34.209.47.66 /opt/tomcat9/bin/shutdown.sh
-                    ssh ec2-user@34.209.47.66 /opt/tomcat9/bin/startup.sh
+                    scp -o StrictHostKeyChecking=no webapp/target/helloworld.war ec2-user@54.191.0.47:/opt/tomcat9/webapps
+                    ssh ec2-user@54.191.0.47 /opt/tomcat9/bin/shutdown.sh
+                    ssh ec2-user@54.191.0.47 /opt/tomcat9/bin/startup.sh
                 
                     '''
                 }
