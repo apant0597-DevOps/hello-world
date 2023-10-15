@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
     tools {
@@ -16,6 +15,21 @@ pipeline {
             steps{
                 sh 'mvn test'
             }
+            post {
+                success{
+                    withSonarQubeEnv(credentialsId: 'sonarqube') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+                unsuccessful {
+                    slackSend baseUrl: 'https://hooks.slack.com/services/', 
+                    channel: 'jenkins-notifs', 
+                    color: '#FF0000', 
+                    message: 'BUILD FAILED: Check Unit Tests! ', 
+                    tokenCredentialId: 'slack', 
+                    username: 'Jenkins-NOTIFS'
+                }
+            }
         }
         stage('DEPLOY'){
             steps {
@@ -30,14 +44,23 @@ pipeline {
                 }
             }
         }
+        stage ('SLACK NOTIFICATION'){
+            steps {
+                slackSend baseUrl: 'https://hooks.slack.com/services/', 
+                channel: 'jenkins-notifs', 
+                color: '	#008000', 
+                message: 'BUILD SUCCESS!', 
+                tokenCredentialId: 'slack', 
+                username: 'Jenkins-NOTIFS'
+            }
+        }
     }
-    
     post {
         success { 
             echo "This pipeline is successfull!"
-            }
-    unsuccessful {
+        }
+        unsuccessful {
             echo "ISSUE!!!"
-            }
+        }
     }
 }
