@@ -25,7 +25,7 @@ pipeline {
                         -Dsonar.projectKey=DevOpsProject \
                         -Dsonar.login=23f4d1073a1f73702699d6a04cddf483d9923521
                         
-                        ''
+                        '''
                     }
                 }
                 unsuccessful {
